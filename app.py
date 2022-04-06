@@ -2,9 +2,9 @@
 from flask import Flask, request, jsonify
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/ping')
 def index():
-    return "<h1>Welcome to our server !!</h1>"
+    return {"hello":"there"}
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
