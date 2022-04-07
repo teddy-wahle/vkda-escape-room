@@ -29,7 +29,7 @@ def start():
 @app.route("/current")
 def current():
     if not game:
-        return jsonify({"stage": 0}), 200
+        return jsonify({"stage": -1}), 200
         
     return jsonify({"stage": game.current_stage, "name": game.current_stage_name, "descr": game.stages[game.current_stage].descr}), 200
 
