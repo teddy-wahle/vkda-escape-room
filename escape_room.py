@@ -39,7 +39,7 @@ class Sensor(Stage):
 
     def compute(self):
         logging.info("Sensor stage")
-        time.sleep(10)
+        time.sleep(10000)
 
 
 class Camera(Stage):
@@ -48,7 +48,7 @@ class Camera(Stage):
 
     def compute(self):
         logging.info("Camera stage")
-        time.sleep(10)
+        time.sleep(10000)
 
 
 class EscapeRoom:
