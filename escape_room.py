@@ -44,44 +44,44 @@ class Sensor(Stage):
         time.sleep(10000)
 
 
-# class SensorNoiseLevel(Stage):
-#     def __init__(
-#         self,
-#         timeout: int,
-#         points: int,
-#         name: str,
-#         descr: str = "",
-#         duration: int = 3,
-#         threshold: int = 50,
-#     ):
-#         super().__init__(timeout, points, name, descr)
-#         self.threshold = threshold
-#         self.duration = duration
+class SensorNoiseLevel(Stage):
+    def __init__(
+        self,
+        timeout: int,
+        points: int,
+        name: str,
+        descr: str = "",
+        duration: int = 3,
+        threshold: int = 50,
+    ):
+        super().__init__(timeout, points, name, descr)
+        self.threshold = threshold
+        self.duration = duration
 
-#     def compute(self):
-#         logging.info("Sensor Noise Level stage")
-#         now = int(time.time())
-#         print(f"NOW: {now}")
-#         payload = {
-#             "token": os.environ["VKDA_TOKEN"],
-#             "user": os.environ["VKDA_USER"],
-#             "start": now - 10,
-#             "end": now,
-#             "aggregateInterval": "1s",
-#         }
-#         sensor_id = "e4e9157f-d08c-49e2-a7b0-162d6a15285b"
-#         r = requests.get(
-#             f"https://hackathon.verkada.com/sensors/{sensor_id}/sensor_data",
-#             params=payload,
-#         )
-#         data = r.json()
-#         if len(data) > self.duration:
-#             last_points = data[-self.duration :]
-#             print(last_points)
-#             if all([point["noise_level"] > self.threshold for point in last_points]):
-#                 return True
-#         time.sleep(2.1)
-#         return False
+    def compute(self):
+        logging.info("Sensor Noise Level stage")
+        now = int(time.time())
+        print(f"NOW: {now}")
+        payload = {
+            "token": os.environ["VKDA_TOKEN"],
+            "user": os.environ["VKDA_USER"],
+            "start": now - 10,
+            "end": now,
+            "aggregateInterval": "1s",
+        }
+        sensor_id = "e4e9157f-d08c-49e2-a7b0-162d6a15285b"
+        r = requests.get(
+            f"https://hackathon.verkada.com/sensors/{sensor_id}/sensor_data",
+            params=payload,
+        )
+        data = r.json()
+        if len(data) > self.duration:
+            last_points = data[-self.duration :]
+            print(last_points)
+            if all([point["noise_level"] > self.threshold for point in last_points]):
+                return True
+        time.sleep(2.1)
+        return False
 
 
 class Camera(Stage):
