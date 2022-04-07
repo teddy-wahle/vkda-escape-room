@@ -59,8 +59,8 @@ class EscapeRoom:
         self.current_game = None
         self.stop_game = False
         self.stages: List[Stage] = [
-            Sensor(5, 10, "Stage 1"), Sensor(5, 10, "Stage 2"), Sensor(5, 20, "Stage 3"),
-            Camera(5, 20, "Stage 4"), Camera(5, 30, "Stage 5"), Camera(5, 40, "Stage 6"),
+            Sensor(5, 10, "Stage 1", "desc 1"), Sensor(5, 10, "Stage 2", "desc 2"), Sensor(5, 20, "Stage 3", "desc 3"),
+            Camera(5, 20, "Stage 4", "desc 4"), Camera(5, 30, "Stage 5", "desc 5"), Camera(5, 40, "Stage 6", "desc 6"),
         ]
 
     def start(self):
