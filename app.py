@@ -52,7 +52,7 @@ def stop():
 
 @app.route('/stages')
 def stages():
-    return jsonify({"stages": game.stages}), 200
+    return jsonify({"stages": [stage.to_dict() for stage in game.stages]}), 200
 
 
 if __name__ == '__main__':

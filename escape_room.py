@@ -25,6 +25,12 @@ class Stage:
 
     def name(self) -> str:
         return self.stage_name
+    
+    def to_dict(self) -> dict:
+        return {
+            "descr" : self.descr,
+            "stage_name" : self.stage_name
+        }
 
 
 class Sensor(Stage):
