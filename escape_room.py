@@ -19,8 +19,9 @@ class Stage:
         while time.time() < current_time + self.timeout:
             if stop():
                 return False, 0
-            self.compute()
-        return True, self.points
+            if self.compute():
+                return True, self.points
+        return False, 0
 
     def compute(self):
         raise NotImplementedError
@@ -42,6 +43,7 @@ class Sensor(Stage):
     def compute(self):
         logging.info("Sensor stage")
         time.sleep(5)
+        return True
 
 
 class SensorReading(Stage):
@@ -93,6 +95,7 @@ class Camera(Stage):
     def compute(self):
         logging.info("Camera stage")
         time.sleep(5)
+        return True
 
 
 class EscapeRoom:
@@ -103,7 +106,7 @@ class EscapeRoom:
         self.current_game = None
         self.stop_game = False
         self.stages: List[Stage] = [
-            Sensor(5, 10, "Stage 1", "Do something with fog machine."), Sensor(5, 10, "Stage 2", "Yell really loud."), Sensor(5, 20, "Stage 3", "Smoke a vape."),
+            SensorReading(5, 10, "Stage 1", "Yell super loud for 3 seconds!!", 3, 20), Sensor(5, 10, "Stage 2", "Yell really loud."), Sensor(5, 20, "Stage 3", "Smoke a vape."),
             Camera(5, 20, "Stage 4", "Dance in front of the camera."), Camera(5, 30, "Stage 5", "Take your hat off."), Camera(5, 40, "Stage 6", "Bring food into the room."),
         ]
 
@@ -128,7 +131,9 @@ class EscapeRoom:
             logging.info(f"{i+1} -> Stage: {stage.name()} Result: {result} Points: {points}")
             self.points += points
             if not result:
+                logging.info(f"YOU LOSE!")
                 return
+            logging.info(f"NEXT STAGE!")
             self.current_stage_name = stage.name()
             self.current_stage += 1
 
