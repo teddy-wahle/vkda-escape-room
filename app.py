@@ -36,7 +36,7 @@ def current():
     print("all stages = ", game.stages)
     print("return data about curre stage, which is: " + str(game.current_stage))
     if (game.current_stage >= len(game.stages)):
-        return jsonify({"stage": "end", "name": "You win!", "descr": "You escaped the room."}), 200 
+        return jsonify({"stage": game.current_stage, "name": "You win!", "descr": "You escaped the room."}), 200 
 
     return jsonify({"stage": game.current_stage, "name": game.current_stage_name, "descr": game.stages[game.current_stage].descr}), 200
 
