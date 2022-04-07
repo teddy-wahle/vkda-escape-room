@@ -17,11 +17,9 @@ def index():
     return {"hello": "there"}
 
 
-@app.route("/start")
+@app.route("/restart")
 def start():
     global game
-    if game:
-        return jsonify({"message": "stop previous game before starting a new one"}), 400
 
     game = EscapeRoom()
     game.start()
@@ -31,7 +29,8 @@ def start():
 @app.route("/current")
 def current():
     if not game:
-        return jsonify({"message": "game not started"}), 400
+        return jsonify({"stage": 0}), 200
+        
     return jsonify({"stage": game.current_stage, "name": game.current_stage_name, "descr": game.stages[game.current_stage].descr}), 200
 
 
