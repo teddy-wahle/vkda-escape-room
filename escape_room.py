@@ -6,10 +6,11 @@ from typing import List
 
 
 class Stage:
-    def __init__(self, timeout: int, points: int, descr: str = ""):
+    def __init__(self, timeout: int, points: int, name: str, descr: str = ""):
         self.timeout = timeout  # stage timeout in sec
         self.points = points
         self.descr = descr
+        self.stage_name = name
 
     def start(self, stop) -> (bool, int):
         current_time = time.time()
@@ -22,10 +23,13 @@ class Stage:
     def compute(self):
         raise NotImplementedError
 
+    def name(self) -> str:
+        return self.stage_name
+
 
 class Sensor(Stage):
-    def __init__(self, timeout: int, points: int):
-        super().__init__(timeout, points)
+    def __init__(self, timeout: int, points: int, name: str):
+        super().__init__(timeout, points, name)
 
     def compute(self):
         logging.info("Sensor stage")
@@ -33,8 +37,8 @@ class Sensor(Stage):
 
 
 class Camera(Stage):
-    def __init__(self, timeout: int, points: int):
-        super().__init__(timeout, points)
+    def __init__(self, timeout: int, points: int, name: str):
+        super().__init__(timeout, points, name)
 
     def compute(self):
         logging.info("Camera stage")
@@ -43,13 +47,14 @@ class Camera(Stage):
 
 class EscapeRoom:
     def __init__(self):
-        self.current = 0
+        self.current_stage_name = "Start"
+        self.current_stage = 0
         self.points = 0
         self.current_game = None
         self.stop_game = False
         self.stages: List[Stage] = [
-            Sensor(5, 10), Sensor(5, 10), Sensor(5, 20),
-            Camera(5, 20), Camera(5, 30), Camera(5, 40),
+            Sensor(5, 10, "Stage 1"), Sensor(5, 10, "Stage 2"), Sensor(5, 20, "Stage 3"),
+            Camera(5, 20, "Stage 4"), Camera(5, 30, "Stage 5"), Camera(5, 40, "Stage 6"),
         ]
 
     def start(self):
@@ -66,12 +71,17 @@ class EscapeRoom:
         self.stop_game = False
 
     def run(self, stop):
-        self.current = 0
+        self.current_stage = 0
         self.points = 0
         for i, stage in enumerate(self.stages):
             result, points = stage.start(stop)
-            logging.info(f"Stage: {i+1} Result: {result} Points: {points}")
+            logging.info(f"{i+1} -> Stage: {stage.name()} Result: {result} Points: {points}")
             self.points += points
             if not result:
                 return
-            self.current += 1
+            self.current_stage_name = stage.name()
+            self.current_stage += 1
+
+        self.current_stage_name = "Stop"
+        self.current_stage += 1
+        logging.info(f"Game completed -> Points: {self.points}")

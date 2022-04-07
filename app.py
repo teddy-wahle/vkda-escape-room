@@ -9,7 +9,7 @@ from escape_room import EscapeRoom
 logging.basicConfig(level=logging.DEBUG, format='%(name)s - %(levelname)s - %(message)s')
 app = Flask(__name__)
 CORS(app)
-game = None
+game: EscapeRoom = None
 
 
 @app.route("/ping")
@@ -32,7 +32,7 @@ def start():
 def current():
     if not game:
         return jsonify({"message": "game not started"}), 400
-    return jsonify({"current": game.current, "descr": game.stages[game.current].descr}), 200
+    return jsonify({"stage": game.current_stage, "name": game.current_stage_name, "descr": game.stages[game.current].descr}), 200
 
 
 @app.route("/points")
