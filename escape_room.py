@@ -41,7 +41,7 @@ class Sensor(Stage):
 
     def compute(self):
         logging.info("Sensor stage")
-        time.sleep(10)
+        time.sleep(5)
 
 
 class SensorNoiseLevel(Stage):
@@ -90,7 +90,7 @@ class Camera(Stage):
 
     def compute(self):
         logging.info("Camera stage")
-        time.sleep(10)
+        time.sleep(5)
 
 
 class EscapeRoom:
