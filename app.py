@@ -1,10 +1,43 @@
 # A welcome message to test our server
-from flask import Flask, request, jsonify
-app = Flask(__name__)
+import logging
 
-@app.route('/ping')
+from flask import Flask, jsonify
+
+from escape_room import EscapeRoom
+
+logging.basicConfig(level=logging.DEBUG, format='%(name)s - %(levelname)s - %(message)s')
+app = Flask(__name__)
+game = EscapeRoom()
+
+
+@app.route("/ping")
 def index():
-    return {"hello":"there"}
+    return {"hello": "there"}
+
+
+@app.route("/start")
+def start():
+    global game
+    game = EscapeRoom()
+    game.start()
+    return jsonify({}), 200
+
+
+@app.route("/current")
+def current():
+    return jsonify({"current": game.current}), 200
+
+
+@app.route("/points")
+def points():
+    return jsonify({"points": game.points}), 200
+
+
+@app.route("/stop")
+def stop():
+    game.stop()
+    return jsonify({}), 200
+
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
