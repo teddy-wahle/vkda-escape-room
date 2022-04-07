@@ -20,6 +20,8 @@ def index():
 @app.route("/restart")
 def start():
     global game
+    if game:
+        game.stop()
 
     game = EscapeRoom()
     game.start()
