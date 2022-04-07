@@ -38,7 +38,7 @@ def current():
     if (game.current_stage >= len(game.stages)):
         return jsonify({"stage": game.current_stage, "name": "You win!", "descr": "You escaped the room."}), 200 
 
-    return jsonify({"stage": game.current_stage, "name": game.current_stage_name, "descr": game.stages[game.current_stage].descr}), 200
+    return jsonify({"stage": game.current_stage, "name": game.stages[game.current_stage].name, "descr": game.stages[game.current_stage].descr}), 200
 
 
 @app.route("/points")
