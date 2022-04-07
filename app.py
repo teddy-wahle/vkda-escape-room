@@ -32,7 +32,7 @@ def start():
 def current():
     if not game:
         return jsonify({"message": "game not started"}), 400
-    return jsonify({"current": game.current}), 200
+    return jsonify({"current": game.current, "descr": game.stages[game.current].descr}), 200
 
 
 @app.route("/points")
