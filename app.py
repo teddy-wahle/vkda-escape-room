@@ -41,6 +41,12 @@ def points():
     return jsonify({"points": game.points}), 200
 
 
+@app.route("/developer/increment_stage")
+def increment():
+    game.current_stage += 1
+    return jsonify({}), 200
+
+
 @app.route("/stop")
 def stop():
     global game
