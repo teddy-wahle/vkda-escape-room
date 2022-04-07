@@ -60,6 +60,8 @@ def stop():
 
 @app.route('/stages')
 def stages():
+    if not game:
+        return jsonify({"stages": []})
     return jsonify({"stages": [stage.to_dict() for stage in game.stages]}), 200
 
 
