@@ -63,9 +63,9 @@ class SensorReading(Stage):
         self.reading = reading
 
     def compute(self):
+        time.sleep(5)
         logging.info("Sensor Noise Level stage")
         now = int(time.time())
-        print(f"NOW: {now}")
         payload = {
             "token": os.environ["VKDA_TOKEN"],
             "user": os.environ["VKDA_USER"],
@@ -106,8 +106,8 @@ class EscapeRoom:
         self.current_game = None
         self.stop_game = False
         self.stages: List[Stage] = [
-            SensorReading(5, 10, "Stage 1", "Yell super loud for 3 seconds!!", 3, 20), Sensor(5, 10, "Stage 2", "Yell really loud."), Sensor(5, 20, "Stage 3", "Smoke a vape."),
-            Camera(5, 20, "Stage 4", "Dance in front of the camera."), Camera(5, 30, "Stage 5", "Take your hat off."), Camera(5, 40, "Stage 6", "Bring food into the room."),
+            SensorReading(5, 10, "Stage 1", "Yell super loud for 3 seconds!!", 3, 20), Sensor(5, 20, "Stage 3", "Smoke a vape under the sensor by the heater."),
+            Camera(5, 20, "Stage 4", "Dance in front of the camera."), Camera(5, 30, "Stage 5", "Take your hat off."), Camera(5, 40, "Stage 6", "Make a sad face in front of the camera."),
         ]
 
     def start(self):
