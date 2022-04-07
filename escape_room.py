@@ -34,8 +34,8 @@ class Stage:
 
 
 class Sensor(Stage):
-    def __init__(self, timeout: int, points: int, name: str):
-        super().__init__(timeout, points, name)
+    def __init__(self, timeout: int, points: int, name: str, descr: str = ""):
+        super().__init__(timeout, points, name, descr)
 
     def compute(self):
         logging.info("Sensor stage")
@@ -43,8 +43,8 @@ class Sensor(Stage):
 
 
 class Camera(Stage):
-    def __init__(self, timeout: int, points: int, name: str):
-        super().__init__(timeout, points, name)
+    def __init__(self, timeout: int, points: int, name: str, descr: str = ""):
+        super().__init__(timeout, points, name, descr)
 
     def compute(self):
         logging.info("Camera stage")
