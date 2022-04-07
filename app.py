@@ -31,7 +31,7 @@ def start():
 @app.route("/current")
 def current():
     if not game:
-        return jsonify({"stage": -1}), 200
+        return jsonify({"stage": -1, "name": "Waiting to begin...", "descr": "Please press start..."}), 200
     
     print("all stages = ", game.stages)
     print("return data about curre stage, which is: " + str(game.current_stage))
