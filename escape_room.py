@@ -44,7 +44,7 @@ class Sensor(Stage):
         time.sleep(5)
 
 
-class SensorNoiseLevel(Stage):
+class SensorReading(Stage):
     def __init__(
         self,
         timeout: int,
@@ -53,10 +53,12 @@ class SensorNoiseLevel(Stage):
         descr: str = "",
         duration: int = 3,
         threshold: int = 50,
+        reading: str = "noise_level"
     ):
         super().__init__(timeout, points, name, descr)
         self.threshold = threshold
         self.duration = duration
+        self.reading = reading
 
     def compute(self):
         logging.info("Sensor Noise Level stage")
@@ -77,8 +79,8 @@ class SensorNoiseLevel(Stage):
         data = r.json()
         if len(data) > self.duration:
             last_points = data[-self.duration :]
-            print(last_points)
-            if all([point["noise_level"] > self.threshold for point in last_points]):
+            print([point[self.reading] for point in last_points])
+            if all([point[self.reading] > self.threshold for point in last_points]):
                 return True
         time.sleep(2.1)
         return False
