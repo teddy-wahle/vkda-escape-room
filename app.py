@@ -2,11 +2,13 @@
 import logging
 
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 from escape_room import EscapeRoom
 
 logging.basicConfig(level=logging.DEBUG, format='%(name)s - %(levelname)s - %(message)s')
 app = Flask(__name__)
+CORS(app)
 game = None
 
 
