@@ -100,7 +100,7 @@ class Camera(Stage):
 
 class EscapeRoom:
     def __init__(self):
-        self.current_stage_name = "Start"
+        self.current_stage_name = "Stage 1"
         self.current_stage = 0
         self.points = 0
         self.current_game = None
