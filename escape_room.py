@@ -41,7 +41,7 @@ class Sensor(Stage):
 
     def compute(self):
         logging.info("Sensor stage")
-        time.sleep(10000)
+        time.sleep(10)
 
 
 class SensorNoiseLevel(Stage):
@@ -90,7 +90,7 @@ class Camera(Stage):
 
     def compute(self):
         logging.info("Camera stage")
-        time.sleep(10000)
+        time.sleep(10)
 
 
 class EscapeRoom:
@@ -101,8 +101,8 @@ class EscapeRoom:
         self.current_game = None
         self.stop_game = False
         self.stages: List[Stage] = [
-            Sensor(5, 10, "Stage 1", "desc 1"), Sensor(5, 10, "Stage 2", "desc 2"), Sensor(5, 20, "Stage 3", "desc 3"),
-            Camera(5, 20, "Stage 4", "desc 4"), Camera(5, 30, "Stage 5", "desc 5"), Camera(5, 40, "Stage 6", "desc 6"),
+            Sensor(5, 10, "Stage 1", "Do something with fog machine."), Sensor(5, 10, "Stage 2", "Yell really loud."), Sensor(5, 20, "Stage 3", "Smoke a vape."),
+            Camera(5, 20, "Stage 4", "Dance in front of the camera."), Camera(5, 30, "Stage 5", "Take your hat off."), Camera(5, 40, "Stage 6", "Bring food into the room."),
         ]
 
     def start(self):
