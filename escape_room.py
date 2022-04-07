@@ -63,7 +63,7 @@ class SensorReading(Stage):
         self.reading = reading
 
     def compute(self):
-        time.sleep(1)
+        time.sleep(2.5)
         logging.info("Sensor Noise Level stage")
         now = int(time.time())
         payload = {
