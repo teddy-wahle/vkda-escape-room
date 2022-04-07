@@ -30,7 +30,9 @@ def start():
 def current():
     if not game:
         return jsonify({"stage": -1}), 200
-        
+    
+    print("all stages = ", game.stages)
+    print("return data about curre stage, which is: " + str(game.current_stage))
     return jsonify({"stage": game.current_stage, "name": game.current_stage_name, "descr": game.stages[game.current_stage].descr}), 200
 
 
