@@ -19,6 +19,7 @@ def index():
 
 @app.route("/restart")
 def start():
+    global game
 
     game = EscapeRoom()
     game.start()
