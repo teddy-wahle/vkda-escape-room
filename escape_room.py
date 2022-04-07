@@ -6,9 +6,10 @@ from typing import List
 
 
 class Stage:
-    def __init__(self, timeout: int, points: int):
+    def __init__(self, timeout: int, points: int, descr: str = ""):
         self.timeout = timeout  # stage timeout in sec
         self.points = points
+        self.descr = descr
 
     def start(self, stop) -> (bool, int):
         current_time = time.time()
