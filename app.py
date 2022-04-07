@@ -50,6 +50,10 @@ def stop():
     game = None
     return jsonify({}), 200
 
+@app.route('/stages')
+def stages():
+    return jsonify({"stages": game.stages}), 200
+
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
