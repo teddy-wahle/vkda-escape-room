@@ -106,8 +106,8 @@ class EscapeRoom:
         self.current_game = None
         self.stop_game = False
         self.stages: List[Stage] = [
-            SensorReading(5, 10, "Stage 1", "Yell super loud for 3 seconds!!", 3, 20), Sensor(5, 20, "Stage 2", "Smoke a vape under the sensor by the heater."),
-            Camera(5, 20, "Stage 3", "Dance in front of the camera."), Camera(5, 30, "Stage 4", "Take your hat off."), Camera(5, 40, "Stage 5", "Make a sad face in front of the camera."),
+            SensorReading(5, 10, "Stage 1", "Yell super loud for 3 seconds!!", 3, 20), Sensor(5, 20, "Stage 2", "Smoke a vape under one of the senors."),
+            Camera(5, 20, "Stage 3", "Wear a red shirt in front of the camera."), Camera(5, 30, "Stage 4", "Turn on the heater!"), Camera(5, 40, "Stage 5", "Make a sad face in front of the camera."),
         ]
 
     def start(self):
