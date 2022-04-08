@@ -49,7 +49,7 @@ class Sensor(Stage):
         time.sleep(5)
 
 
-class SensorNoiseLevel(Stage):
+class SensorReading(Stage):
     def __init__(
         self,
         timeout: int,
@@ -58,10 +58,12 @@ class SensorNoiseLevel(Stage):
         descr: str = "",
         duration: int = 3,
         threshold: int = 50,
+        reading: str = "noise_level"
     ):
         super().__init__(timeout, points, name, descr)
         self.threshold = threshold
         self.duration = duration
+        self.reading = reading
 
     def compute(self):
         logging.info("Sensor Noise Level stage")
@@ -81,8 +83,8 @@ class SensorNoiseLevel(Stage):
         data = r.json()
         if len(data) > self.duration:
             last_points = data[-self.duration :]
-            print(last_points)
-            if all([point["noise_level"] > self.threshold for point in last_points]):
+            print([point[self.reading] for point in last_points])
+            if all([point[self.reading] > self.threshold for point in last_points]):
                 return True
         time.sleep(2.1)
         return False
@@ -167,8 +169,8 @@ class VideoDownloader:
     def next_segment(self):
         if self.timeout < self.end - self.stage_start:
             return ""
-        while int(time.time()) < self.end + 4:
-            time.sleep(5)
+        # while int(time.time()) < self.end + 4:
+        time.sleep(self.interval)
         print(self.timeout, self.end, self.stage_start)
         video_path = f"data/{self.end}.mp4"
         start = self.end - self.interval
@@ -187,8 +189,7 @@ class EscapeRoom:
         self.current_game = None
         self.stop_game = False
         self.stages: List[Stage] = [
-            CameraEmotion(80, 40, "Stage 0", "Smile in front of the TV facing camera", duration=10, emotion="Happy"),
-            # SensorReading(60, 10, "Stage 1", "Yell super loud for 3 seconds!!", 3, 60), Sensor(10, 20, "Stage 2", "Lie down on the couch for 3 seconds"),
+            SensorReading(60, 10, "Stage 1", "Yell super loud for 3 seconds!!", 3, 60), Sensor(10, 20, "Stage 2", "Lie down on the couch for 3 seconds"),
             Sensor(5, 20, "Stage 3", "Smoke a vape under one of the sensors."),
             Camera(5, 20, "Stage 4", "Wear a red shirt in front of the camera."), Camera(5, 30, "Stage 5", "Turn on the heater!"),
             CameraEmotion(80, 40, "Stage 0", "Smile in front of the TV facing camera", duration=10, emotion="Happy"),
