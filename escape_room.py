@@ -94,7 +94,7 @@ class Camera(Stage):
 
     def compute(self):
         logging.info("Camera stage")
-        time.sleep(5)
+        time.sleep(3)
         return True
 
 
